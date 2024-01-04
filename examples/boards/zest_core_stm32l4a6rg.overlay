@@ -1,0 +1,17 @@
+/*
+ * Copyright (c) 2024 CATIE
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+&i2c3 {
+	pinctrl-0 = <&i2c3_scl_pc0 &i2c3_sda_pc1>;
+	pinctrl-names = "default";
+	status = "okay";
+
+	as621x@76 {
+		compatible = "ams,as621x";
+		status = "okay";
+		reg = <0x76>;
+	};
+};
