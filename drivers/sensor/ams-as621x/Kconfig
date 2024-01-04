@@ -1,0 +1,12 @@
+# AS621X temperature sensor configuration options
+
+# Copyright (c) 2024 CATIE
+# SPDX-License-Identifier: Apache-2.0
+
+config AMS_AS621X
+    bool "AMS AS621X temperature sensor"
+    default y
+    depends on DT_HAS_AMS_AS621X_ENABLED
+    select I2C
+    help
+      Enable driver for AMS AS621X temperature sensor.
