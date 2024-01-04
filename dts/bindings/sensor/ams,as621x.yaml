@@ -1,0 +1,9 @@
+# Copyright (c) 2024 CATIE
+# SPDX-License-Identifier: Apache-2.0
+
+description: |
+    AMS AS621x temperature sensor
+
+compatible: "ams,as621x"
+
+include: [sensor-device.yaml, i2c-device.yaml]
