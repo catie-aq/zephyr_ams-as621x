@@ -36,8 +36,9 @@ static int as621x_fetch(const struct device *dev, enum sensor_channel chan)
 		return -ENOTSUP;
 	}
 
-	ret = i2c_write_read_dt(&dev_cfg->i2c, TVAL, 1, (uint8_t *)&value, sizeof(value));
+	ret = i2c_burst_read_dt(&dev_cfg->i2c, TVAL, (uint8_t *)&value, 2);
 	if (!ret) {
+		value = (value >> 8) | (value << 8);
 		dev_data->temp = value;
 	}
 
