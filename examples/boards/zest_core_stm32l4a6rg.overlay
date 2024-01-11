@@ -9,9 +9,9 @@
 	pinctrl-names = "default";
 	status = "okay";
 
-	as621x@76 {
+	as621x@48 {
 		compatible = "ams,as621x";
 		status = "okay";
-		reg = <0x76>;
+		reg = <0x48>;
 	};
 };
