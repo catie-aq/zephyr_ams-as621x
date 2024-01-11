@@ -21,7 +21,7 @@ struct as621x_cfg {
 };
 
 struct as621x_data {
-	int16_t temp;
+	uint16_t temp;
 };
 
 static int as621x_fetch(const struct device *dev, enum sensor_channel chan)
@@ -29,7 +29,7 @@ static int as621x_fetch(const struct device *dev, enum sensor_channel chan)
 	struct as621x_data *dev_data = dev->data;
 	const struct as621x_cfg *dev_cfg = dev->config;
 
-	int16_t value;
+	uint16_t value;
 	int ret;
 
 	if (chan != SENSOR_CHAN_ALL && chan != SENSOR_CHAN_AMBIENT_TEMP) {
@@ -53,9 +53,9 @@ static int as621x_get(const struct device *dev, enum sensor_channel chan, struct
 		return -ENOTSUP;
 	}
 
-	double value = (double)dev_data->temp / 128.0;
-	val->val1 = (int)value;
-	val->val2 = (value - val->val1) * 1000000;
+	// One LSB corresponds to 0.0078125°C (1/128 °C)
+	val->val1 = dev_data->temp / 128;
+	val->val2 = (dev_data->temp % 128) * 78125;
 
 	return 0;
 }
