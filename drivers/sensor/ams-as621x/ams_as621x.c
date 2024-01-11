@@ -71,7 +71,7 @@ static int as621x_init(const struct device *dev)
 	return 0;
 }
 
-static const struct sensor_driver_api as5600_driver_api = {
+static const struct sensor_driver_api as621x_driver_api = {
 	.sample_fetch = as621x_fetch,
 	.channel_get = as621x_get,
 };
@@ -82,6 +82,6 @@ static const struct sensor_driver_api as5600_driver_api = {
 	};                                                                                         \
 	static struct as621x_data as621x_data_##n;                                                 \
 	DEVICE_DT_INST_DEFINE(n, as621x_init, NULL, &as621x_data_##n, &as621x_config_##n,          \
-			      POST_KERNEL, CONFIG_SENSOR_INIT_PRIORITY, &as5600_driver_api);
+			      POST_KERNEL, CONFIG_SENSOR_INIT_PRIORITY, &as621x_driver_api);
 
 DT_INST_FOREACH_STATUS_OKAY(AS621X_INIT)
