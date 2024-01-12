@@ -54,7 +54,7 @@ static int as621x_get(const struct device *dev, enum sensor_channel chan, struct
 	}
 
 	// One LSB corresponds to 0.0078125°C (1/128 °C)
-	val->val1 = dev_data->temp / 128;
+	val->val1 = dev_data->temp >> 7;
 	val->val2 = (dev_data->temp % 128) * 78125;
 
 	return 0;
