@@ -4,9 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-&i2c3 {
-	pinctrl-0 = <&i2c3_scl_pc0 &i2c3_sda_pc1>;
-	pinctrl-names = "default";
+&sixtron_i2c {
 	status = "okay";
 
 	as621x@48 {
