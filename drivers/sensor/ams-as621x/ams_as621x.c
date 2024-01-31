@@ -9,7 +9,8 @@
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/drivers/i2c.h>
 #include <zephyr/logging/log.h>
-LOG_MODULE_REGISTER(ams_as621x, CONFIG_SENSOR_LOG_LEVEL);
+
+LOG_MODULE_REGISTER(AS621X, CONFIG_SENSOR_LOG_LEVEL);
 
 #define TVAL   0x0
 #define CONFIG 0x1
