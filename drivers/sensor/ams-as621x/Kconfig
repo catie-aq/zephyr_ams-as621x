@@ -3,10 +3,29 @@
 # Copyright (c) 2024 CATIE
 # SPDX-License-Identifier: Apache-2.0
 
-config AMS_AS621X
+menuconfig AMS_AS621X
     bool "AMS AS621X temperature sensor"
     default y
     depends on DT_HAS_AMS_AS621X_ENABLED
     select I2C
     help
       Enable driver for AMS AS621X temperature sensor.
+
+if AMS_AS621X
+
+choice
+	prompt "Conversion rate"
+	default AS621X_CONVERSION_RATE_4HZ
+	help
+	  Select the conversion rate of the sensor.
+config AS621X_CONVERSION_RATE_0_25HZ
+  bool "0.25 Hz"
+config AS621X_CONVERSION_RATE_1HZ
+  bool "1 Hz"
+config AS621X_CONVERSION_RATE_4HZ
+  bool "4 Hz"
+config AS621X_CONVERSION_RATE_8HZ
+  bool "8 Hz"
+endchoice
+
+endif # AMS_AS621X
