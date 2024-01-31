@@ -39,6 +39,43 @@ static int as621x_set_conversion_rate(const struct device *dev, uint8_t rate)
 	return i2c_burst_write_dt(&cfg->i2c, AS621X_REG_CONFIG, (uint8_t *)&config, 2);
 }
 
+static int as621x_attr_set(const struct device *dev, enum sensor_channel chan,
+			   enum sensor_attribute attr, const struct sensor_value *val)
+{
+	if (chan != SENSOR_CHAN_AMBIENT_TEMP) {
+		return -ENOTSUP;
+	}
+
+	if (attr == SENSOR_ATTR_SAMPLING_FREQUENCY) {
+		uint8_t rate;
+
+		// Convert from mHz to Hz
+		uint16_t cr = val->val1 * 1000 + val->val2 / 1000;
+
+		// The sensor supports 0.25, 1, 4 and 8 Hz
+		switch (cr) {
+		case 250:
+			rate = 0x0;
+			break;
+		case 1000:
+			rate = 0x1;
+			break;
+		case 4000:
+			rate = 0x2;
+			break;
+		case 8000:
+			rate = 0x3;
+			break;
+		default:
+			return -ENOTSUP;
+		}
+
+		return as621x_set_conversion_rate(dev, rate);
+	}
+
+	return 0;
+}
+
 static int as621x_sample_fetch(const struct device *dev, enum sensor_channel chan)
 {
 	struct as621x_data *dev_data = dev->data;
@@ -94,6 +131,7 @@ static int as621x_init(const struct device *dev)
 }
 
 static const struct sensor_driver_api as621x_driver_api = {
+	.attr_set = as621x_attr_set,
 	.sample_fetch = as621x_sample_fetch,
 	.channel_get = as621x_channel_get,
 };
