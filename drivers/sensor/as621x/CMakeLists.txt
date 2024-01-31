@@ -3,4 +3,4 @@
 
 zephyr_library()
 
-zephyr_library_sources(ams_as621x.c)
+zephyr_library_sources(as621x.c)

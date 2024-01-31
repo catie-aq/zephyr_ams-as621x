@@ -3,6 +3,6 @@
 
 if SENSOR
 
-rsource "ams-as621x/Kconfig"
+rsource "as621x/Kconfig"
 
 endif # SENSOR

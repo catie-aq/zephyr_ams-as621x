@@ -3,7 +3,7 @@
 # Copyright (c) 2024 CATIE
 # SPDX-License-Identifier: Apache-2.0
 
-menuconfig AMS_AS621X
+menuconfig AS621X
     bool "AMS AS621X temperature sensor"
     default y
     depends on DT_HAS_AMS_AS621X_ENABLED
@@ -11,7 +11,7 @@ menuconfig AMS_AS621X
     help
       Enable driver for AMS AS621X temperature sensor.
 
-if AMS_AS621X
+if AS621X
 
 choice
 	prompt "Conversion rate"
