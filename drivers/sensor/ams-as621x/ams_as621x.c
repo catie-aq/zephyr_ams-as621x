@@ -20,7 +20,19 @@ struct as621x_cfg {
 
 struct as621x_data {
 	uint16_t temp;
+	uint16_t config_reg;
 };
+
+static int asx621x_update_config(const struct device *dev, uint16_t mask, uint16_t value)
+{
+	const struct as621x_cfg *cfg = dev->config;
+	struct as621x_data *data = dev->data;
+
+	data->config_reg &= ~mask;
+	data->config_reg |= value;
+
+	return i2c_burst_write_dt(&cfg->i2c, AS621X_REG_CONFIG, (uint8_t *)&data->config_reg, 2);
+}
 
 static int as621x_set_conversion_rate(const struct device *dev, uint8_t rate)
 {
@@ -33,10 +45,7 @@ static int as621x_set_conversion_rate(const struct device *dev, uint8_t rate)
 		return -EIO;
 	}
 
-	config &= ~(0x3 << 6);
-	config |= (rate << 6);
-
-	return i2c_burst_write_dt(&cfg->i2c, AS621X_REG_CONFIG, (uint8_t *)&config, 2);
+	return asx621x_update_config(dev, ASX621X_CONFIG_CR, rate << AS621X_CR_SHIFT);
 }
 
 static int as621x_attr_set(const struct device *dev, enum sensor_channel chan,
@@ -116,10 +125,15 @@ static int as621x_channel_get(const struct device *dev, enum sensor_channel chan
 static int as621x_init(const struct device *dev)
 {
 	const struct as621x_cfg *cfg = dev->config;
+	struct as621x_data *dev_data = dev->data;
 
 	if (!i2c_is_ready_dt(&cfg->i2c)) {
 		LOG_ERR("I2C bus %s not ready", cfg->i2c.bus->name);
 		return -ENODEV;
+	}
+
+	if (i2c_burst_read_dt(&cfg->i2c, AS621X_REG_CONFIG, (uint8_t *)&dev_data->config_reg, 2)) {
+		return -EIO;
 	}
 
 	if (as621x_set_conversion_rate(dev, AS621X_CONVERSION_RATE)) {
