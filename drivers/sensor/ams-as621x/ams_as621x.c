@@ -22,7 +22,7 @@ struct as621x_data {
 	uint16_t temp;
 };
 
-static int as621x_set_conv_rate(const struct device *dev, uint8_t rate)
+static int as621x_set_conversion_rate(const struct device *dev, uint8_t rate)
 {
 	const struct as621x_cfg *cfg = dev->config;
 	uint16_t config;
@@ -85,7 +85,7 @@ static int as621x_init(const struct device *dev)
 		return -ENODEV;
 	}
 
-	if (as621x_set_conv_rate(dev, AS621X_CONVERSION_RATE)) {
+	if (as621x_set_conversion_rate(dev, AS621X_CONVERSION_RATE)) {
 		LOG_ERR("Failed to set conversion rate");
 		return -EIO;
 	}
