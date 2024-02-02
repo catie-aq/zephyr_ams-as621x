@@ -8,4 +8,4 @@ on:
 
 jobs:
   zephyr-driver:
-    uses: catie-aq/zephyr_workflows/.github/workflows/application.yml@7-create-cicd-for-zephyr-driver
+    uses: catie-aq/zephyr_workflows/.github/workflows/driver.yml@7-create-cicd-for-zephyr-driver
