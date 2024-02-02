@@ -9,6 +9,3 @@ on:
 jobs:
   zephyr-driver:
     uses: catie-aq/zephyr_workflows/.github/workflows/application.yml@7-create-cicd-for-zephyr-driver
-    with:
-      board: "zest_core_stm32l4a6rg"
-      container: "zephyrprojectrtos/ci:v0.24.13"
