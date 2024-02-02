@@ -1,10 +1,6 @@
 name: "Zephyr Driver CI/CD"
 
-on:
-  push:
-    paths-ignore:
-      - 'README.md'
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 
 jobs:
   zephyr-driver:
