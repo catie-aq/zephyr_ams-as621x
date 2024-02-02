@@ -7,4 +7,3 @@ jobs:
     uses: catie-aq/zephyr_workflows/.github/workflows/driver.yml@7-create-cicd-for-zephyr-driver
     secrets:
       personal_access_token: ${{ secrets.PAT }}
-        
