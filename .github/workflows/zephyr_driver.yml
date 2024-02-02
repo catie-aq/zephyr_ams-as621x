@@ -4,8 +4,9 @@ on:
   push:
     paths-ignore:
       - 'README.md'
-  workflow_dispatch:
+  workflow_dispatch: 
 
 jobs:
   zephyr-driver:
     uses: catie-aq/zephyr_workflows/.github/workflows/driver.yml@7-create-cicd-for-zephyr-driver
+        
