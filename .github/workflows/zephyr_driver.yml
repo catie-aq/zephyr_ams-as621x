@@ -5,5 +5,7 @@ on: [push, workflow_dispatch]
 jobs:
   zephyr-driver:
     uses: catie-aq/zephyr_workflows/.github/workflows/driver.yml@7-create-cicd-for-zephyr-driver
+    with:
+      zephyr_revision: 'v3.4.0'
     secrets:
       personal_access_token: ${{ secrets.PAT }}
