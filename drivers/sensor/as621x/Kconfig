@@ -4,28 +4,49 @@
 # SPDX-License-Identifier: Apache-2.0
 
 menuconfig AS621X
-    bool "AMS AS621X temperature sensor"
-    default y
-    depends on DT_HAS_AMS_AS621X_ENABLED
-    select I2C
-    help
-      Enable driver for AMS AS621X temperature sensor.
+	bool "AMS AS621X temperature sensor"
+	default y
+	depends on DT_HAS_AMS_AS621X_ENABLED
+	select I2C
+	help
+	  Enable driver for AMS AS621X temperature sensor.
 
 if AS621X
 
-choice
+choice AS621X_TRIGGER_MODE
+	prompt "Temperature sensor trigger mode"
+	default AS621X_TRIGGER_NONE
+	help
+	  Specify the type of triggering to be used by the driver.
+
+config AS621X_TRIGGER_NONE
+	bool "No trigger"
+
+config AS621X_TRIGGER_GLOBAL_THREAD
+	bool "Use global thread"
+	select AS621X_TRIGGER
+
+config AS621X_TRIGGER_OWN_THREAD
+	bool "Use own thread"
+	select AS621X_TRIGGER
+
+endchoice
+
+choice AS621X_CONVERSION_RATE
 	prompt "Conversion rate"
 	default AS621X_CONVERSION_RATE_4HZ
 	help
 	  Select the conversion rate of the sensor.
+
 config AS621X_CONVERSION_RATE_0_25HZ
-  bool "0.25 Hz"
+	bool "0.25 Hz"
 config AS621X_CONVERSION_RATE_1HZ
-  bool "1 Hz"
+	bool "1 Hz"
 config AS621X_CONVERSION_RATE_4HZ
-  bool "4 Hz"
+	bool "4 Hz"
 config AS621X_CONVERSION_RATE_8HZ
-  bool "8 Hz"
+	bool "8 Hz"
+
 endchoice
 
 endif # AMS_AS621X

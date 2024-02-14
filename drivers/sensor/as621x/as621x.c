@@ -16,6 +16,9 @@ LOG_MODULE_REGISTER(AS621X, CONFIG_SENSOR_LOG_LEVEL);
 
 struct as621x_cfg {
 	struct i2c_dt_spec i2c;
+#ifdef CONFIG_AS621X_TRIGGER
+	const struct gpio_dt_spec int_gpio;
+#endif
 };
 
 struct as621x_data {
@@ -148,12 +151,16 @@ static const struct sensor_driver_api as621x_driver_api = {
 	.attr_set = as621x_attr_set,
 	.sample_fetch = as621x_sample_fetch,
 	.channel_get = as621x_channel_get,
+#if defined(CONFIG_AS621X_TRIGGER)
+	.trigger_set = as621x_trigger_set,
+#endif
 };
 
 #define AS621X_INIT(n)                                                                             \
 	static struct as621x_cfg as621x_config_##n = {                                             \
 		.i2c = I2C_DT_SPEC_INST_GET(n),                                                    \
-	};                                                                                         \
+		IF_ENABLED(CONFIG_AS621X_TRIGGER,                                                  \
+			   (.int_gpio = GPIO_DT_SPEC_INST_GET_OR(inst, int_gpios, {0}), ))};       \
 	static struct as621x_data as621x_data_##n;                                                 \
 	DEVICE_DT_INST_DEFINE(n, as621x_init, NULL, &as621x_data_##n, &as621x_config_##n,          \
 			      POST_KERNEL, CONFIG_SENSOR_INIT_PRIORITY, &as621x_driver_api);

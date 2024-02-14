@@ -32,4 +32,9 @@
 #define AS621X_CONVERSION_RATE 0x3
 #endif
 
+#if CONFIG_AS61X_TRIGGER
+int as621x_trigger_set(const struct device *dev, const struct sensor_trigger *trig,
+		       sensor_trigger_handler_t handler);
+#endif
+
 #endif /* ZEPHYR_DRIVERS_SENSOR_AS621X_AS621X_H_ */
