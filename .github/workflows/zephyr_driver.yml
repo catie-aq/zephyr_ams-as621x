@@ -1,10 +1,10 @@
 name: "Zephyr Driver CI/CD"
 
-on: [push, workflow_dispatch]
+on: [pull_request, workflow_dispatch]
 
 jobs:
   zephyr-driver:
-    uses: catie-aq/zephyr_workflows/.github/workflows/driver.yml@7-create-cicd-for-zephyr-driver
+    uses: catie-aq/zephyr_workflows/.github/workflows/driver.yml@main
     with:
       zephyr_revision: 'v3.4.0'
     secrets:
