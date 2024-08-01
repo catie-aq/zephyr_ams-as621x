@@ -1,8 +1,4 @@
 # Copyright (c) 2024 CATIE
 # SPDX-License-Identifier: Apache-2.0
 
-if SENSOR
-
-rsource "ams/Kconfig"
-
-endif # SENSOR
+rsource "as621x/Kconfig"
