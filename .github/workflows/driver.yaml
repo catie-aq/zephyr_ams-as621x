@@ -1,0 +1,16 @@
+name: "Zephyr AMS AS621x Driver CI/CD"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  driver:
+    uses: catie-aq/zephyr_workflows/.github/workflows/driver.yml@main
+    secrets:
+      personal_access_token: ${{ secrets.PAT }}
+    with:
+      path: "samples"
