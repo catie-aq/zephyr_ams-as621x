@@ -1,5 +1,6 @@
 sample:
-  name: AS621x Temperature Sensor
+  description: Demonstration of the AS621x temperature sensor driver
+  name: AS621x Sample
 tests:
   sample.default:
     tags: sensor
