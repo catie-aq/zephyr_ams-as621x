@@ -1,9 +1,6 @@
 name: "AMS AS621x Sensor Driver CI"
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
   workflow_dispatch:
 
