@@ -1,9 +1,6 @@
 name: "AMS AS621x Sensor Driver CI"
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
   workflow_dispatch:
 
@@ -11,6 +8,6 @@ jobs:
   driver:
     uses: catie-aq/zephyr_workflows/.github/workflows/driver.yml@main
     secrets:
-      personal_access_token: ${{ secrets.PAT }}
+      personal_access_token: ${{ secrets.CI_6TRON_ZEPHYR_RO }}
     with:
       path: "samples"
